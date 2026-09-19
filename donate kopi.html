@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dukung Karumiya YifanDa — Platform Apresiasi & Donasi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        dark: {
+                            950: '#05070a',
+                            900: '#0b0f19',
+                            850: '#111726',
+                            800: '#172033',
+                            700: '#212d45',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05070a;
+            color: #f1f5f9;
+            background-image: 
+                radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 40%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 15% 70%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .dark-card {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-card-hover {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .dark-card-hover:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+        }
+
+        .input-field {
+            background: rgba(5, 7, 10, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+            transition: all 0.25s ease;
+        }
+        .input-field:focus {
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05070a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #172033;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #212d45;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-slate-950">
+
+    <!-- HEADER / HERO BANNER -->
+    <header class="relative pt-8 pb-6 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+        <div class="dark-card rounded-3xl p-6 sm:p-10 relative overflow-hidden text-center">
+            
+            <!-- Minimal Accent Glows -->
+            <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Profile Avatar Badge -->
+                <div class="relative mb-5">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-emerald-500/40 via-zinc-800 to-zinc-900 p-1 shadow-2xl border border-white/10 flex items-center justify-center glow-emerald">
+                        <div class="w-full h-full bg-dark-900 rounded-[20px] flex items-center justify-center overflow-hidden">
+                            <img src="https://files.catbox.moe/0vo2jv.png" alt="Karumiya YifanDa" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x200/0f172a/10b981?text=KY'">
+                        </div>
+                    </div>
+                    <span class="absolute -bottom-1 -right-1 bg-emerald-500 text-slate-950 px-2.5 py-0.5 rounded-full border-2 border-dark-950 flex items-center justify-center text-[10px] font-extrabold tracking-wider uppercase shadow">
+                        Online
+                    </span>
+                </div>
+
+                <!-- Creator Name & Bio -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold mb-3.5 shadow-sm">
+                    <i class="fa-solid fa-mug-hot text-amber-400"></i>
+                    <span>Traktir Secangkir Kopi</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+                
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-gradient mb-3 flex items-center justify-center gap-2.5">
+                    Karumiya YifanDa <i class="fa-solid fa-mug-hot text-amber-500 text-2xl sm:text-4xl"></i>
+                </h1>
+                <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base leading-relaxed font-light">
+                    Support gw dgn cara beliin kopi/donet disini biar gw makin semangat ngebuat project KynaX :v
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full space-y-8">
+
+        <!-- CARD 1: METODE PEMBAYARAN -->
+        <section class="dark-card rounded-3xl p-6 sm:p-8 border border-white/10">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
+                <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-base shadow-inner">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    Sellect a Payment Method
+                </h2>
+                <span class="text-xs text-slate-400 font-medium bg-dark-950 px-3 py-1 rounded-full border border-white/5">A/n Karumiya YifanDa</span>
+            </div>
+
+            <!-- Modern Minimal Tabs Header -->
+            <div class="grid grid-cols-3 gap-2 p-1.5 bg-dark-950 rounded-2xl mb-6 border border-white/10">
+                <button onclick="switchTab('dana')" id="tab-dana" class="tab-btn active py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-md">
+                    <i class="fa-solid fa-mobile-screen"></i> DANA
+                </button>
+                <button onclick="switchTab('gopay')" id="tab-gopay" class="tab-btn py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bolt"></i> GoPay
+                </button>
+                <button onclick="switchTab('qris')" id="tab-qris" class="tab-btn py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-qrcode"></i> QRIS
+                </button>
+            </div>
+
+            <!-- Tab Content: DANA -->
+            <div id="content-dana" class="tab-content block">
+                <div class="p-6 rounded-2xl bg-dark-950/70 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5">
+                    <div class="space-y-1 text-center sm:text-left">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">Nomor DANA</span>
+                        <div class="text-2xl sm:text-3xl font-bold font-mono text-white tracking-wider">082118412445</div>
+                        <div class="text-xs text-slate-400">Atas Nama: <span class="text-slate-200 font-semibold">Karumiya YifanDa</span></div>
+                    </div>
+                    <button onclick="copyToClipboard('082118412445', 'DANA')" class="w-full sm:w-auto px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-2xl text-xs font-extrabold transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 active:scale-95">
+                        <i class="fa-regular fa-copy"></i> Salin Nomor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content: GoPay -->
+            <div id="content-gopay" class="tab-content hidden">
+                <div class="p-6 rounded-2xl bg-dark-950/70 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5">
+                    <div class="space-y-1 text-center sm:text-left">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">Nomor GoPay</span>
+                        <div class="text-2xl sm:text-3xl font-bold font-mono text-white tracking-wider">082118412445</div>
+                        <div class="text-xs text-slate-400">Atas Nama: <span class="text-slate-200 font-semibold">Karumiya YifanDa</span></div>
+                    </div>
+                    <button onclick="copyToClipboard('082118412445', 'GoPay')" class="w-full sm:w-auto px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-2xl text-xs font-extrabold transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 active:scale-95">
+                        <i class="fa-regular fa-copy"></i> Salin Nomor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content: QRIS -->
+            <div id="content-qris" class="tab-content hidden text-center">
+                <div class="p-6 rounded-2xl bg-dark-950/70 border border-white/10 flex flex-col items-center">
+                    <p class="text-xs text-slate-400 mb-4 font-light">Scan QRIS nya biar muka mu tambah jelek</p>
+                    
+                    <!-- QRIS Frame Preview -->
+                    <div class="relative group cursor-pointer rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-white p-3.5 max-w-[220px] transition transform hover:scale-[1.02]" onclick="openQrisModal()">
+                        <img id="qris-image-preview" src="https://placehold.co/400x400/0f172a/ffffff?text=Scan+QRIS+Disini" alt="QRIS Karumiya YifanDa" class="w-full h-auto rounded-xl object-contain">
+                        <div class="absolute inset-0 bg-dark-950/60 opacity-0 group-hover:opacity-100 transition duration-200 flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-xs">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> Perbesar QR
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4">A/n <span class="text-slate-200 font-semibold">Karumiya YifanDa</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 2: FORM BUKTI TRANSFER & PESAN -->
+        <section class="dark-card rounded-3xl p-6 sm:p-8 border border-white/10">
+            <div class="mb-6 pb-4 border-b border-white/5">
+                <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2.5 mb-1">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-base shadow-inner">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                    Konfirmasi Donasi & Pesan
+                </h2>
+                <p class="text-xs text-slate-400 font-light">
+                    Isi form setelah mentransfer agar namamu lgsg tercatat di Papan Apresiasi!
+                </p>
+            </div>
+
+            <form id="donation-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                
+                <!-- Nominal Selection -->
+                <div>
+                    <div class="flex items-center justify-between mb-2.5">
+                        <label class="block text-xs font-semibold text-slate-300">Pilih / Masukkan Nominal Transfer (Rp)</label>
+                        <!-- Tier Switcher -->
+                        <div class="flex items-center gap-1 bg-dark-950 p-1 rounded-xl border border-white/10 text-[10px]">
+                            <button type="button" onclick="switchNominalTier('receh')" id="tier-receh" class="tier-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition font-medium">Receh</button>
+                            <button type="button" onclick="switchNominalTier('kopi')" id="tier-kopi" class="tier-btn px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition font-medium">Kopi</button>
+                            <button type="button" onclick="switchNominalTier('sultan')" id="tier-sultan" class="tier-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition font-medium">Sultan</button>
+                        </div>
+                    </div>
+
+                    <!-- Tier 1: Receh (100 perak - 5.000) -->
+                    <div id="presets-receh" class="nominal-preset-group hidden grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3">
+                        <button type="button" onclick="setNominal(100)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">100</button>
+                        <button type="button" onclick="setNominal(500)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">500</button>
+                        <button type="button" onclick="setNominal(1000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">1.000</button>
+                        <button type="button" onclick="setNominal(2000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">2.000</button>
+                        <button type="button" onclick="setNominal(5000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">5.000</button>
+                    </div>
+
+                    <!-- Tier 2: Kopi (10.000 - 100.000) -->
+                    <div id="presets-kopi" class="nominal-preset-group grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                        <button type="button" onclick="setNominal(10000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">10.000</button>
+                        <button type="button" onclick="setNominal(25000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">25.000</button>
+                        <button type="button" onclick="setNominal(50000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">50.000</button>
+                        <button type="button" onclick="setNominal(100000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">100.000</button>
+                    </div>
+
+                    <!-- Tier 3: Sultan (250.000 - 1.000.000) -->
+                    <div id="presets-sultan" class="nominal-preset-group hidden grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                        <button type="button" onclick="setNominal(250000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">250.000</button>
+                        <button type="button" onclick="setNominal(500000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">500.000</button>
+                        <button type="button" onclick="setNominal(750000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">750.000</button>
+                        <button type="button" onclick="setNominal(1000000)" class="preset-btn px-2 py-2.5 rounded-xl text-xs font-semibold font-mono bg-dark-950 hover:bg-dark-800 border border-white/10 text-slate-300 transition">1.000.000</button>
+                    </div>
+
+                    <!-- Input Field dengan Tombol Perkecil & Perbanyak -->
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="adjustNominal('perkecil')" title="Perkecil Nominal" class="px-3.5 py-3 bg-dark-950 hover:bg-dark-800 border border-white/10 rounded-2xl text-slate-300 hover:text-emerald-400 text-xs font-semibold transition flex items-center gap-1.5 shrink-0 active:scale-95">
+                            <i class="fa-solid fa-compress text-emerald-400"></i>
+                            <span class="hidden sm:inline">Perkecil</span>
+                        </button>
+
+                        <div class="relative flex-1">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-sm font-semibold">Rp</span>
+                            <input type="number" id="input-nominal" required min="100" placeholder="50000" class="w-full input-field rounded-2xl pl-11 pr-4 py-3 text-sm font-mono font-semibold">
+                        </div>
+
+                        <button type="button" onclick="adjustNominal('perbanyak')" title="Perbanyak Nominal" class="px-3.5 py-3 bg-dark-950 hover:bg-dark-800 border border-white/10 rounded-2xl text-slate-300 hover:text-emerald-400 text-xs font-semibold transition flex items-center gap-1.5 shrink-0 active:scale-95">
+                            <i class="fa-solid fa-expand text-emerald-400"></i>
+                            <span class="hidden sm:inline">Perbanyak</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Name & Anonymous Option -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-semibold text-slate-300">Nama Donatur</label>
+                        <label class="inline-flex items-center gap-2 cursor-pointer text-xs text-emerald-400 hover:text-emerald-300 font-medium">
+                            <input type="checkbox" id="input-anonymous" onchange="toggleAnonymous(this)" class="rounded bg-dark-950 border-white/10 text-emerald-500 focus:ring-emerald-500">
+                            Anonim Name
+                        </label>
+                    </div>
+                    <input type="text" id="input-name" required placeholder="Masukkan nama atau julukan kamu" class="w-full input-field rounded-2xl px-4 py-3 text-sm">
+                </div>
+
+                <!-- Message -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-2">Pesan / Caption untuk Karumiya YifanDa</label>
+                    <textarea id="input-message" rows="3" required placeholder="Tulis ucapan, doa, atau pesan hangat kamu disini..." class="w-full input-field rounded-2xl px-4 py-3 text-sm resize-none"></textarea>
+                </div>
+
+                <!-- Proof Image Upload Dropzone -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-2">Upload Foto Bukti Transfer</label>
+                    <div class="relative border-2 border-dashed border-white/15 hover:border-emerald-500/60 rounded-2xl p-6 text-center transition bg-dark-950/50 group">
+                        <input type="file" id="input-proof" accept="image/*" required onchange="handleFileSelect(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        
+                        <div id="upload-placeholder" class="space-y-2">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto text-lg border border-emerald-500/20 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <div class="text-xs text-slate-300 font-semibold">Klik atau seret screenshot bukti transfer di sini</div>
+                            <div class="text-[10px] text-slate-400">Format: JPG, PNG, WEBP (Otomatis dikompres secara aman)</div>
+                        </div>
+
+                        <!-- Image Preview Area -->
+                        <div id="upload-preview-container" class="hidden flex flex-col items-center gap-2">
+                            <img id="upload-preview-img" src="" alt="Preview Bukti" class="max-h-40 rounded-xl object-contain border border-white/10 shadow-xl">
+                            <span id="upload-file-name" class="text-xs text-emerald-400 font-mono font-medium"></span>
+                            <span class="text-[10px] text-slate-400">Klik untuk mengganti gambar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="btn-submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-2xl text-sm shadow-xl shadow-emerald-500/20 transition transform active:scale-98 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-mug-hot text-slate-950"></i> Kirim Donasi & Bukti Transfer
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: QRIS EXPAND LIGHTBOX -->
+    <div id="qris-modal" class="fixed inset-0 z-50 bg-dark-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="dark-card max-w-sm w-full p-6 rounded-3xl relative text-center border border-white/10">
+            <button onclick="closeQrisModal()" class="absolute top-4 right-4 w-8 h-8 rounded-xl bg-dark-950 text-slate-400 hover:text-white flex items-center justify-center text-sm border border-white/10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-base font-bold text-white mb-1">Scan QRIS All Payment</h3>
+            <p class="text-xs text-slate-400 mb-5">Atas Nama: Karumiya YifanDa</p>
+            
+            <div class="bg-white p-4 rounded-2xl mb-5 shadow-2xl">
+                <img src="https://placehold.co/400x400/0f172a/ffffff?text=Scan+QRIS+Disini" alt="QRIS Large" class="w-full h-auto rounded-lg">
+            </div>
+
+            <button onclick="closeQrisModal()" class="w-full py-2.5 bg-dark-950 hover:bg-dark-800 text-slate-200 rounded-xl text-xs font-semibold border border-white/10 transition">
+                Tutup Preview
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 text-xs text-slate-400 border-t border-white/5 max-w-4xl mx-auto w-full px-4">
+        <p>© 2026 Donasi to YifanTzyy Website — All Rights Reserverd</p>
+    </footer>
+
+    <script>
+        /* ====================================================================
+           TELEGRAM BOT CONFIGURATION (SETTING DISINI)
+           ==================================================================== */
+        const TELEGRAM_BOT_TOKEN = "7916909623:AAFSf-XJ8_YxNWWkUj78C3mKqKzM2x6n0sA"; // Ubah dengan Bot Token Telegram milikmu
+        const TELEGRAM_CHAT_ID   = "6219355152";                  // Ubah dengan Chat ID Telegram milikmu
+        /* ==================================================================== */
+
+        let compressedBase64Image = "";
+
+        // Convert base64 DataURI to Blob for Telegram sendPhoto API
+        function dataURItoBlob(dataURI) {
+            try {
+                const byteString = atob(dataURI.split(',')[1]);
+                const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ab], { type: mimeString });
+            } catch (e) {
+                console.error("Blob conversion error:", e);
+                return null;
+            }
+        }
+
+        // Get currently selected payment tab name
+        function getSelectedPaymentMethod() {
+            if (!document.getElementById('content-dana').classList.contains('hidden')) return "DANA";
+            if (!document.getElementById('content-gopay').classList.contains('hidden')) return "GoPay";
+            if (!document.getElementById('content-qris').classList.contains('hidden')) return "QRIS";
+            return "Metode Pembayaran";
+        }
+
+        // Handle Donation Form Submit & Direct Send to Telegram Bot
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('btn-submit');
+            const nominal = Number(document.getElementById('input-nominal').value);
+            const name = document.getElementById('input-name').value.trim();
+            const message = document.getElementById('input-message').value.trim();
+            const isAnonymous = document.getElementById('input-anonymous').checked;
+            const paymentMethod = getSelectedPaymentMethod();
+
+            if (!nominal || nominal <= 0) {
+                showToast("Masukkan nominal transfer yang valid!", "warning");
+                return;
+            }
+
+            if (!compressedBase64Image) {
+                showToast("Upload foto bukti transfer terlebih dahulu!", "warning");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-slate-950"></i> Mengirim Bukti Transfer...`;
+
+            const donorName = isAnonymous ? 'Anonim 🥷' : (name || 'Donatur Baik');
+            const formattedNominal = formatRupiah(nominal);
+            const currentDate = new Date().toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            // Telegram HTML Caption formatting
+            const captionText = 
+`<b>☕ BUKTI DONASI BARU MASUK!</b>\n` +
+`━━━━━━━━━━━━━━━━━━━━\n` +
+`👤 <b>Nama Donatur:</b> ${escapeHtml(donorName)}\n` +
+`💰 <b>Nominal:</b> <code>${formattedNominal}</code>\n` +
+`💳 <b>Metode:</b> ${paymentMethod}\n` +
+`📅 <b>Waktu:</b> ${currentDate}\n` +
+`━━━━━━━━━━━━━━━━━━━━\n` +
+`📝 <b>Pesan / Caption:</b>\n<i>"${escapeHtml(message)}"</i>\n` +
+`━━━━━━━━━━━━━━━━━━━━`;
+
+            try {
+                // Check default placeholder settings
+                if (TELEGRAM_BOT_TOKEN.includes("8473141790:AAHJLs8qtbobJ6itd9_ga3iYq8YqbwI8gx4") || TELEGRAM_CHAT_ID.includes("6977362634")) {
+                    showToast("Tidak dapat mengirim bukti ke Karumiya YifanDa!", "warning");
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-mug-hot text-slate-950"></i> Kirim Donasi & Bukti Transfer`;
+                    return;
+                }
+
+                // Prepare FormData payload for Telegram sendPhoto
+                const imageBlob = dataURItoBlob(compressedBase64Image);
+                const formData = new FormData();
+                formData.append('chat_id', TELEGRAM_CHAT_ID);
+                formData.append('photo', imageBlob, 'bukti_transfer.jpg');
+                formData.append('caption', captionText);
+                formData.append('parse_mode', 'HTML');
+
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.ok) {
+                    // Trigger Confetti Animation
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+
+                    showToast("Bukti donasi & pesan berhasil terkirim kepada Karumiya YifanDa", "success");
+
+                    // Reset Form
+                    document.getElementById('donation-form').reset();
+                    document.getElementById('upload-preview-container').classList.add('hidden');
+                    document.getElementById('upload-placeholder').classList.remove('hidden');
+                    compressedBase64Image = "";
+                } else {
+                    console.error("API sent Error:", result);
+                    showToast(`Gagal Proses`, "error");
+                }
+
+            } catch (err) {
+                console.error("Submit Error:", err);
+                showToast("Terjadi kesalahan pada sistem Karumiya.", "error");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-mug-hot text-slate-950"></i> Kirim Donasi & Bukti Transfer`;
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showToast("File harus berupa foto/gambar!", "error");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Compress to JPEG format with 0.70 quality
+                    compressedBase64Image = canvas.toDataURL('image/jpeg', 0.70);
+
+                    // UI Preview Update
+                    document.getElementById('upload-preview-img').src = compressedBase64Image;
+                    document.getElementById('upload-file-name').innerText = `Gambar Siap Upload (~${(file.size / 1024).toFixed(0)} KB)`;
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                    document.getElementById('upload-preview-container').classList.remove('hidden');
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Tab Switcher
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-emerald-500/15', 'text-emerald-400', 'border', 'border-emerald-500/30', 'shadow-md');
+                el.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            activeBtn.classList.add('bg-emerald-500/15', 'text-emerald-400', 'border', 'border-emerald-500/30', 'shadow-md');
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        // Preset Nominal Buttons
+        function setNominal(val) {
+            document.getElementById('input-nominal').value = val;
+        }
+
+        // Switch Preset Tiers (Receh, Kopi, Sultan)
+        function switchNominalTier(tier) {
+            document.querySelectorAll('.nominal-preset-group').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tier-btn').forEach(el => {
+                el.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/30');
+                el.classList.add('text-slate-400');
+            });
+
+            const targetGroup = document.getElementById(`presets-${tier}`);
+            if (targetGroup) targetGroup.classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`tier-${tier}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/30');
+                activeBtn.classList.remove('text-slate-400');
+            }
+        }
+
+        // Adjust Nominal (Perkecil / Perbanyak)
+        function adjustNominal(action) {
+            const input = document.getElementById('input-nominal');
+            let currentVal = Number(input.value) || 50000;
+
+            if (action === 'perkecil') {
+                currentVal = Math.max(100, Math.floor(currentVal / 2));
+            } else if (action === 'perbanyak') {
+                currentVal = currentVal ? Math.min(100000000, currentVal * 2) : 50000;
+            }
+
+            input.value = currentVal;
+            showToast(`Nominal diubah ke Rp ${currentVal.toLocaleString('id-ID')}`, 'info');
+        }
+
+        // Anonymous Mode Toggle
+        function toggleAnonymous(checkbox) {
+            const nameInput = document.getElementById('input-name');
+            if (checkbox.checked) {
+                nameInput.dataset.prevName = nameInput.value;
+                nameInput.value = "Anonim 🥷";
+                nameInput.disabled = true;
+                nameInput.classList.add('opacity-40');
+            } else {
+                nameInput.disabled = false;
+                nameInput.classList.remove('opacity-40');
+                nameInput.value = nameInput.dataset.prevName || "";
+            }
+        }
+
+        // Copy to Clipboard Utility
+        function copyToClipboard(text, name) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Nomor ${name} (${text}) berhasil disalin!`, 'success');
+        }
+
+        // QRIS Modal Helpers
+        function openQrisModal() {
+            const modal = document.getElementById('qris-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeQrisModal() {
+            const modal = document.getElementById('qris-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Toast Alert System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' ? 'bg-emerald-500 text-slate-950 font-bold' : 
+                            type === 'error' ? 'bg-rose-600 text-white font-semibold' : 
+                            type === 'warning' ? 'bg-amber-600 text-white font-semibold' : 'bg-dark-800 text-white border border-white/10';
+            
+            toast.className = `${bgClass} px-4 py-3 rounded-2xl shadow-2xl text-xs flex items-center gap-2.5 pointer-events-auto transform transition duration-300 translate-y-full opacity-0`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'} text-sm"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Formatters
+        function formatRupiah(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
